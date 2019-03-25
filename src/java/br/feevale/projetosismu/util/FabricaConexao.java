@@ -1,3 +1,4 @@
+
 package br.feevale.projetosismu.util;
 
 import java.sql.Connection;
@@ -11,7 +12,7 @@ public class FabricaConexao {
     private static Connection conexao;
     private static final String URL_CONEXAO = "jdbc://mysql://localhost/sismu";
     private static final String USER = "root";
-    private static final String PASSWORD = "strack";
+    private static final String PASSWORD = "root";
 
     public static Connection getConexao() {
         if(conexao == null){
