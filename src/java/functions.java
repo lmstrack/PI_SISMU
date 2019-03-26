@@ -32,7 +32,7 @@ public class functions extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
+            // retorno out.println("xfdvgnhg");
             String funcao = request.getParameter("fun");
             
             switch(funcao) {
@@ -40,6 +40,17 @@ public class functions extends HttpServlet {
                     String codigo = request.getParameter("codigo");
                     String descricao = request.getParameter("descricao");
                     salvarCategoria(codigo, descricao);
+                    break;
+                case "excluirCategoria":
+                    String codigo = request.getParameter("codigo");
+                    excluirCategoria(codigo);
+                    break;
+                case "lerCategoria":
+                    String codigo = request.getParameter("codigo");
+                    lerCategoria(codigo);
+                    break;
+                case "listarCategorias":
+                    listarCategoria();
                     break;
             }            
         }
