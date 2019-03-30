@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+import br.feevale.projetosismu.dao.CategoriaDAO;
+import br.feevale.projetosismu.entity.Categoria;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,41 +8,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Anderson
- */
 @WebServlet(urlPatterns = {"/functions"})
 public class functions extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+  
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             // retorno out.println("xfdvgnhg");
             String funcao = request.getParameter("fun");
+            String codigo;
+            String descricao;
             
             switch(funcao) {
                 case "salvarCategoria":
-                    String codigo = request.getParameter("codigo");
-                    String descricao = request.getParameter("descricao");
+                    codigo = request.getParameter("codigo");
+                    descricao = request.getParameter("descricao");                  
                     salvarCategoria(codigo, descricao);
                     break;
                 case "excluirCategoria":
-                    String codigo = request.getParameter("codigo");
+                    codigo = request.getParameter("codigo");
                     excluirCategoria(codigo);
                     break;
                 case "lerCategoria":
-                    String codigo = request.getParameter("codigo");
+                    codigo = request.getParameter("codigo");
                     lerCategoria(codigo);
                     break;
                 case "listarCategorias":
@@ -55,17 +40,7 @@ public class functions extends HttpServlet {
             }            
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
+ @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
@@ -94,5 +69,34 @@ public class functions extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    
+    private void salvarCategoria(String codigo, String descricao){
+        Categoria cat = new Categoria();
+        CategoriaDAO catDAO = new CategoriaDAO();
+        
+        cat.setIdCategoria(Integer.parseInt(codigo));
+        cat.setDescricao(descricao);
+        
+        catDAO.insertCategoria(cat);
+    }
+    
+    private void excluirCategoria(String codigo) {
+        CategoriaDAO catDAO = new CategoriaDAO();
+        catDAO.deleteCategoria(Integer.parseInt(codigo));
+    }
 
+    private String listarCategoria() {
+        String categorias;
+        CategoriaDAO catDAO = new CategoriaDAO();
+        categorias = catDAO.selectCategorias();
+        return categorias;
+    }
+
+    private String lerCategoria(String codigo) {
+        String categoria;
+        CategoriaDAO catDAO = new CategoriaDAO();
+        categoria = catDAO.selectCategoria(Integer.parseInt(codigo));
+        return categoria;
+    }
 }

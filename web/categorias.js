@@ -11,7 +11,7 @@ btCancelar.addEventListener("click", () => btCancelarClick());
 btExcluir.addEventListener("click", () => btExcluirClick());
 window.onload = () => {
     carregaTableCategorias();
-}
+};
 
 function codigoCategoriaFocusLost() {
     alert("111q");
@@ -37,7 +37,18 @@ function btCancelarClick() {
 }
 
 function btExcluirClick() {
-    location.reload();
+    const fun = "excluirCategoria";
+    const codigo = codigoCategoria.value;
+    const descricao = descricaoCategoria.value;
+    return axios
+    .post(`functions?fun=${fun}&codigo=${codigo}`)
+    .then(response => {
+        alert("response.data");
+        location.reload();
+    })
+    .catch(error => {
+        alert('oops, something went wrong!', error);
+    });
 }
 
 function carregaTableCategorias() {
