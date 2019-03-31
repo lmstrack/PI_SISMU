@@ -14,7 +14,17 @@ window.onload = () => {
 };
 
 function codigoCategoriaFocusLost() {
-    alert("111q");
+    const fun = "lerCategoria";
+    const codigo = codigoCategoria.value;
+    return axios
+    .post(`functions?fun=${fun}&codigo=${codigo}`)
+    .then(response => {
+        alert(response.data);
+        location.reload();
+    })
+    .catch(error => {
+        alert('oops, something went wrong!', error);
+    });
 }
 
 function btSalvarClick() {

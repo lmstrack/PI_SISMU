@@ -1,8 +1,8 @@
 
 package br.feevale.projetosismu.util;
 
-import br.feevale.projetosismu.dao.CategoriaDAO;
-import br.feevale.projetosismu.entity.Categoria;
+import br.feevale.projetosismu.dao.ExpositorDAO;
+import br.feevale.projetosismu.entity.Expositor;
 
 public class TesteConexao {
 
@@ -11,18 +11,8 @@ public class TesteConexao {
         FabricaConexao c = new FabricaConexao();
         c.getConexao();
         
-        Categoria cat = new Categoria();
-        CategoriaDAO dao = new CategoriaDAO();
-        
-        cat.setIdCategoria(10);
-        cat.setDescricao("Novo valor");
-        
-        dao.insertCategoria(cat);
-        
-        String listaCategorias = dao.selectCategorias();
-        
-        System.out.println(listaCategorias);
-           
+                
+        c.fecharConexao();
     }
 
     
