@@ -11,6 +11,14 @@ public class TesteConexao {
         FabricaConexao c = new FabricaConexao();
         c.getConexao();
         
+        Expositor expo = new Expositor();
+        ExpositorDAO expDAO = new ExpositorDAO();
+        
+        expo.setIdExpositor(1);
+        expo.setDescricao("Teste de insert");
+        
+        expDAO.insertExpositor(expo);
+        
                 
         c.fecharConexao();
     }

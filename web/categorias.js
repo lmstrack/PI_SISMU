@@ -17,10 +17,11 @@ function codigoCategoriaFocusLost() {
     const fun = "lerCategoria";
     const codigo = codigoCategoria.value;
     return axios
-    .post(`functions?fun=${fun}&codigo=${codigo}`)
+    .post(`FunctionsCategoria?fun=${fun}&codigo=${codigo}`)
     .then(response => {
-        alert(response.data);
-        location.reload();
+        let codigo,descricao ;
+        [codigo, descricao] = response.data.split("|");
+        descricaoCategoria.value = descricao;
     })
     .catch(error => {
         alert('oops, something went wrong!', error);
@@ -32,9 +33,9 @@ function btSalvarClick() {
     const codigo = codigoCategoria.value;
     const descricao = descricaoCategoria.value;
     return axios
-    .post(`functions?fun=${fun}&codigo=${codigo}&descricao=${descricao}`)
+    .post(`FunctionsCategoria?fun=${fun}&codigo=${codigo}&descricao=${descricao}`)
     .then(response => {
-        alert(response.data);
+        alert("Categoria salva com sucesso!");
         location.reload();
     })
     .catch(error => {
@@ -51,9 +52,9 @@ function btExcluirClick() {
     const codigo = codigoCategoria.value;
     const descricao = descricaoCategoria.value;
     return axios
-    .post(`functions?fun=${fun}&codigo=${codigo}`)
+    .post(`FunctionsCategoria?fun=${fun}&codigo=${codigo}`)
     .then(response => {
-        alert("response.data");
+        alert(response.data);
         location.reload();
     })
     .catch(error => {

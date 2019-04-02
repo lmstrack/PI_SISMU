@@ -1,3 +1,5 @@
+package br.feevale.projetosismu.servlets;
+
 import br.feevale.projetosismu.dao.CategoriaDAO;
 import br.feevale.projetosismu.entity.Categoria;
 import java.io.IOException;
@@ -8,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/functions"})
-public class functions extends HttpServlet {
+@WebServlet(urlPatterns = {"/FunctionsCategoria"})
+public class FunctionsCategoria extends HttpServlet {
   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
@@ -32,7 +34,7 @@ public class functions extends HttpServlet {
                     break;
                 case "lerCategoria":
                     codigo = request.getParameter("codigo");
-                    lerCategoria(codigo);
+                    lerCategoria(codigo, out);
                     break;
                 case "listarCategorias":
                     listarCategoria();
@@ -62,11 +64,16 @@ public class functions extends HttpServlet {
     private void salvarCategoria(String codigo, String descricao){
         Categoria cat = new Categoria();
         CategoriaDAO catDAO = new CategoriaDAO();
-        
         cat.setIdCategoria(Integer.parseInt(codigo));
         cat.setDescricao(descricao);
         
-        catDAO.insertCategoria(cat);
+        if (catDAO.selectCategoria(Integer.parseInt(codigo)).isEmpty()){
+            catDAO.insertCategoria(cat);
+        } else{
+            catDAO.updateCategoria(cat);
+        }
+        
+        
     }
     
     private void excluirCategoria(String codigo) {
@@ -81,10 +88,10 @@ public class functions extends HttpServlet {
         return categorias;
     }
 
-    private String lerCategoria(String codigo) {
+    private void lerCategoria(String codigo, PrintWriter out) {
         String categoria;
         CategoriaDAO catDAO = new CategoriaDAO();
         categoria = catDAO.selectCategoria(Integer.parseInt(codigo));
-        return categoria;
+        out.print(categoria);
     }
 }

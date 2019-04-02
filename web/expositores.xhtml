@@ -13,7 +13,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <title>Cadastro de categorias</title>
+        <title>Cadastro de Expositores</title>
         
     </h:head>
     <h:body>
@@ -49,27 +49,26 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <h1>Cadastro de categorias</h1>
-                            <h:form id="cadastro-categorias">
+                            <h1>Cadastro de expositores</h1>
+                            <h:form id="cadastro-expositores">
                                 <div class="form-group">
-                                    <label for="codigo-categoria">Código</label>
-                                    <input class="form-control" type="text" id="codigo-categoria"/>
-                                    <label for="descricao-categoria">Descrição</label>
-                                    <input class="form-control" type="text" id="descricao-categoria"/>
+                                    <label for="codigo-expositor">Código</label>
+                                    <input class="form-control" type="text" id="codigo-expositor"/>
+                                    <label for="descricao-expositor">Descrição</label>
+                                    <input class="form-control" type="text" id="descricao-expositor"/>
                                     <button type="button" class="btn btn-primary botao-cadastro" id="salvar">Salvar</button>
                                     <button type="button" class="btn btn-secondary botao-cadastro" id="cancelar">Cancelar</button>
                                     <button type="button" class="btn btn-danger botao-cadastro" id="excluir">Excluir</button>
                                 </div>
                             </h:form>
                             <br/>
-                            <table class="table table-hover" id="table-categorias">
+                            <table class="table table-hover" id="table-expositores">
                             </table>                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="./categorias.js"></script>
+        <script src="./expositores.js"></script>
     </h:body>
 </html>
-
