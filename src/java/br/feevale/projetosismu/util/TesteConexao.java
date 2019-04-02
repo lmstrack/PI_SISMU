@@ -10,7 +10,7 @@ public class TesteConexao {
 
         FabricaConexao c = new FabricaConexao();
         c.getConexao();
-        
+
         Expositor expo = new Expositor();
         ExpositorDAO expDAO = new ExpositorDAO();
         
