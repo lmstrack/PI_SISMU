@@ -37,7 +37,7 @@ public class FunctionsCategoria extends HttpServlet {
                     lerCategoria(codigo, out);
                     break;
                 case "listarCategorias":
-                    listarCategoria();
+                    listarCategoria(out);
                     break;
             }            
         }
@@ -72,8 +72,6 @@ public class FunctionsCategoria extends HttpServlet {
         } else{
             catDAO.updateCategoria(cat);
         }
-        
-        
     }
     
     private void excluirCategoria(String codigo) {
@@ -81,17 +79,21 @@ public class FunctionsCategoria extends HttpServlet {
         catDAO.deleteCategoria(Integer.parseInt(codigo));
     }
 
-    private String listarCategoria() {
+    private void listarCategoria(PrintWriter out) {
         String categorias;
         CategoriaDAO catDAO = new CategoriaDAO();
         categorias = catDAO.selectCategorias();
-        return categorias;
+        out.print(categorias);
     }
 
     private void lerCategoria(String codigo, PrintWriter out) {
         String categoria;
         CategoriaDAO catDAO = new CategoriaDAO();
         categoria = catDAO.selectCategoria(Integer.parseInt(codigo));
-        out.print(categoria);
+        if (categoria.isEmpty()){
+            out.print("|");
+        }else{
+            out.print(categoria);
+        }
     }
 }

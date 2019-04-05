@@ -24,7 +24,7 @@ function codigoExpositorFocusLost() {
         descricaoExpositor.value = descricao;
     })
     .catch(error => {
-        alert('oops, something went wrong!', error);
+        alert('oops, algo deu errado!', error);
     });
 }
 
@@ -39,7 +39,7 @@ function btSalvarClick() {
         location.reload();
     })
     .catch(error => {
-        alert('oops, something went wrong!', error);
+        alert('oops, algo deu errado!', error);
     });
 }
 
@@ -58,7 +58,7 @@ function btExcluirClick() {
         location.reload();
     })
     .catch(error => {
-        alert('oops, something went wrong!', error);
+        alert('oops, algo deu errado!', error);
     });
 }
 
@@ -80,7 +80,7 @@ function carregaTableExpositores() {
         tableExpositores.innerHTML = conteudo;
     })
     .catch(error => {
-        alert('oops, something went wrong!', error);
+        alert('oops, algo deu errado!', error);
     });
 }
 

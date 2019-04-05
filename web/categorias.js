@@ -24,7 +24,7 @@ function codigoCategoriaFocusLost() {
         descricaoCategoria.value = descricao;
     })
     .catch(error => {
-        alert('oops, something went wrong!', error);
+        alert('oops, algo deu errado!', error);
     });
 }
 
@@ -39,7 +39,7 @@ function btSalvarClick() {
         location.reload();
     })
     .catch(error => {
-        alert('oops, something went wrong!', error);
+        alert('oops, algo deu errado!', error);
     });
 }
 
@@ -54,57 +54,34 @@ function btExcluirClick() {
     return axios
     .post(`FunctionsCategoria?fun=${fun}&codigo=${codigo}`)
     .then(response => {
-        alert(response.data);
+        alert("Categoria excluída com sucesso!");
         location.reload();
     })
     .catch(error => {
-        alert('oops, something went wrong!', error);
+        alert('oops, algo deu errado!', error);
     });
 }
 
 function carregaTableCategorias() {
-    let conteudo = `                              <thead>
-                                <tr>
-                                  <th scope="col">Código</th>
-                                  <th scope="col">Descrição</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>Mark</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">2</th>
-                                  <td>Jacob</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Larry the Bird</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Larry the Bird</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Larry the Bird</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Larry the Bird</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Larry the Bird</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Larry the Bird</td>
-                                </tr>
-                              </tbody>
-`;
-    tableCategorias.innerHTML = conteudo;
+    const fun = "listarCategorias";
+    return axios
+    .post(`FunctionsCategoria?fun=${fun}`)
+    .then(response => {
+        let conteudo = `<thead><tr><th scope="col">Código</th><th scope="col">Descrição</th></tr></thead><tbody>`;
+        let linhas = response.data.split("\n");
+        let codigo,descricao ;
+        for (let linha of linhas){
+            if (linha != ""){     
+                [codigo, descricao] = linha.split("|");
+                conteudo += `<tr><th scope="row">${codigo}</th><td>${descricao}</td></tr>`;
+            }
+        }
+        conteudo += `</tbody>`;
+        tableCategorias.innerHTML = conteudo;
+    })
+    .catch(error => {
+        alert('oops, algo deu errado!', error);
+    });
 }
 
 
