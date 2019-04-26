@@ -7,6 +7,7 @@ package br.feevale.projetosismu.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,10 +35,50 @@ public class FunctionsUnidade extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String funcao = request.getParameter("fun");
-            
+            String idUnidade;
+            String descricao;
+            String tamanho;
+            String historia;
+            String historiaDoador;
+            String fabricante;
+            String origem;
+            String dataDoacao;
+            String codDoador;
+            String nPatrimonio;
+            String pacote;
+            String codCategoria;
+            String valorNf;
+            String idDoador;
+            String idRepresentanteLegal;
             
             switch(funcao) {
                 case "salvarUnidade":
+                    idUnidade = request.getParameter("idunidade");
+                    descricao = request.getParameter("descricao");
+                    tamanho = request.getParameter("tamanho");
+                    historia = request.getParameter("historia");
+                    historiaDoador = request.getParameter("historiaDoador");
+                    fabricante = request.getParameter("fabricante");
+                    origem = request.getParameter("origem");
+                    dataDoacao = request.getParameter("dataDoacao");
+                    codDoador = request.getParameter("codDoador");
+                    nPatrimonio = request.getParameter("nPatrimonio");
+                    pacote = request.getParameter("pacote");
+                    codCategoria = request.getParameter("codCategoria");
+                    valorNf = request.getParameter("valorNf");
+                    idDoador = request.getParameter("idDoador");
+                    idRepresentanteLegal = request.getParameter("idRepresentanteLegal");
+                    inserirUnidade(idUnidade, descricao, tamanho, historia, historiaDoador,
+                            fabricante, origem, dataDoacao, codDoador, nPatrimonio, pacote, codCategoria,
+                            valorNf, idDoador, idRepresentanteLegal);
+                    break;
+                
+                case "excluirUnidade":
+                    idUnidade = request.getParameter("idunidade");
+                    excluirUnidade(idUnidade);
+                    break;
+                   
+                case "lerUnidade":
                     
             }
             
@@ -83,5 +124,16 @@ public class FunctionsUnidade extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void excluirUnidade(String idUnidade) {
+        
+    }
+
+    private void inserirUnidade(String idUnidade, String descricao, String tamanho, String historia, 
+            String historiaDoador, String fabricante, String origem, String dataDoacao, String codDoador, 
+            String nPatrimonio, String pacote, String codCategoria, String valorNf, String idDoador,
+            String idRepresentanteLegal) {
+        
+    }
 
 }

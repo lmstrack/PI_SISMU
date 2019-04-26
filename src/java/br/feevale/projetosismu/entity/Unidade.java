@@ -19,6 +19,7 @@ public class Unidade {
     private Integer codCategoria;
     private float valorNf;
     private Integer idDoador;
+    private Integer idRepresentanteLegal;
 
     public Integer getIdDoador() {
         return idDoador;
@@ -27,7 +28,6 @@ public class Unidade {
     public void setIdDoador(Integer idDoador) {
         this.idDoador = idDoador;
     }
-    private Integer idRepresentanteLegal;
 
     public Integer getIdUnidade() {
         return idUnidade;
