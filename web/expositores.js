@@ -48,18 +48,20 @@ function btCancelarClick() {
 }
 
 function btExcluirClick() {
-    const fun = "excluirExpositor";
-    const codigo = codigoExpositor.value;
-    const descricao = descricaoExpositor.value;
-    return axios
-    .post(`FunctionsExpositor?fun=${fun}&codigo=${codigo}`)
-    .then(response => {
-        alert("Expositor excluido com sucesso!");
-        location.reload();
-    })
-    .catch(error => {
-        alert('oops, algo deu errado!', error);
-    });
+    if (confirm("Deseja realmente excluir o expositor?")) {
+        const fun = "excluirExpositor";
+        const codigo = codigoExpositor.value;
+        const descricao = descricaoExpositor.value;
+        return axios
+        .post(`FunctionsExpositor?fun=${fun}&codigo=${codigo}`)
+        .then(response => {
+            alert("Expositor excluido com sucesso!");
+            location.reload();
+        })
+        .catch(error => {
+            alert('oops, algo deu errado!', error);
+        });
+    }
 }
 
 function carregaTableExpositores() {

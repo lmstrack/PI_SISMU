@@ -48,18 +48,20 @@ function btCancelarClick() {
 }
 
 function btExcluirClick() {
-    const fun = "excluirCategoria";
-    const codigo = codigoCategoria.value;
-    const descricao = descricaoCategoria.value;
-    return axios
-    .post(`FunctionsCategoria?fun=${fun}&codigo=${codigo}`)
-    .then(response => {
-        alert("Categoria excluída com sucesso!");
-        location.reload();
-    })
-    .catch(error => {
-        alert('oops, algo deu errado!', error);
-    });
+    if (confirm("Deseja realmente excluir a categoria?")) {
+        const fun = "excluirCategoria";
+        const codigo = codigoCategoria.value;
+        const descricao = descricaoCategoria.value;
+        return axios
+        .post(`FunctionsCategoria?fun=${fun}&codigo=${codigo}`)
+        .then(response => {
+            alert("Categoria excluída com sucesso!");
+            location.reload();
+        })
+        .catch(error => {
+            alert('oops, algo deu errado!', error);
+        });
+    }
 }
 
 function carregaTableCategorias() {
