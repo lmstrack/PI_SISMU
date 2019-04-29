@@ -15,7 +15,7 @@ public class UnidadeDAO {
         try {
             Connection conexao = FabricaConexao.getConexao();
             PreparedStatement ps = conexao.prepareCall("INSERT INTO UNIDADE (IDUNIDADE, DESCRICAO, TAMANHO, HISTORIA, HISTORIADOADOR, "
-                    + "FABRICANTE, ORIGEM, DATADOACAO, CODDOADOR, NPATRIMONIO, PACOTE, CODCATEGORIA, VALORNF, IDDOADOR, IDREPRESENTANTELEGAL) "
+                    + "FABRICANTE, ORIGEM, DATADOACAO, CODDOADOR, NPATRIMONIO, PACOTE, CODCATEGORIA, VALORNF, CODREPLEGAL) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, unidade.getIdUnidade());
             ps.setString(2, unidade.getDescricao());
@@ -30,8 +30,7 @@ public class UnidadeDAO {
             ps.setString(11, unidade.getPacote());
             ps.setInt(12, unidade.getCodCategoria());
             ps.setFloat(13, unidade.getValorNf());
-            ps.setInt(14, unidade.getIdDoador());
-            ps.setInt(15, unidade.getIdRepresentanteLegal());  
+            ps.setInt(14, unidade.getCodRepLegal());  
             ps.execute();
             FabricaConexao.fecharConexao();
         } catch (SQLException ex) {
@@ -44,7 +43,7 @@ public class UnidadeDAO {
         try {
             PreparedStatement ps = conexao.prepareStatement("UPDATE UNIDADE SET DESCRICAO=?, TAMANHO=?, HISTORIA=?,"
                     + " HISTORIADOADOR=?, FABRICANTE=?, ORIGEM=?, DATADOACAO=?, CODDOADOR=?, NPATRIMONIO=?, PACOTE=?,"
-                    + " CODCATEGORIA=?, VALORNF=?, IDDOADOR=?, IDREPRESENTANTELEGAL=? WHERE IDUNIDADE =?");
+                    + " CODCATEGORIA=?, VALORNF=?, CODREPLEGAL=? WHERE IDUNIDADE =?");
             ps.setString(1, unidade.getDescricao());
             ps.setString(2, unidade.getTamanho());
             ps.setString(3, unidade.getHistoria());
@@ -57,8 +56,7 @@ public class UnidadeDAO {
             ps.setString(10, unidade.getPacote());
             ps.setInt(11, unidade.getCodCategoria());
             ps.setFloat(12, unidade.getValorNf());
-            ps.setInt(13, unidade.getIdDoador());
-            ps.setInt(14, unidade.getIdRepresentanteLegal());  
+            ps.setInt(14, unidade.getCodRepLegal());  
             ps.setInt(15, unidade.getIdUnidade());
             ps.execute();
         } catch (SQLException ex) {
@@ -87,7 +85,7 @@ public class UnidadeDAO {
         try {
             Connection conexao = FabricaConexao.getConexao();
             String consulta = "SELECT IDUNIDADE, DESCRICAO, TAMANHO, HISTORIA, HISTORIADOADOR, "
-                    + "FABRICANTE, ORIGEM, DATADOACAO, CODDOADOR, NPATRIMONIO, PACOTE, CODCATEGORIA, VALORNF, IDDOADOR, IDREPRESENTANTELEGAL"
+                    + "FABRICANTE, ORIGEM, DATADOACAO, CODDOADOR, NPATRIMONIO, PACOTE, CODCATEGORIA, VALORNF, CODREPLEGAL"
                     + "FROM UNIDADE WHERE IDUNIDADE = ?";
             PreparedStatement ps = conexao.prepareStatement(consulta);
             ps.setInt(1, codigo);
@@ -106,8 +104,7 @@ public class UnidadeDAO {
                 unidade += rs.getString("PACOTE")+"|";
                 unidade += rs.getInt("CODCATEGORIA")+"|";
                 unidade += rs.getFloat("VALORNF")+"|";
-                unidade += rs.getInt("IDDOADOR")+"|";
-                unidade += rs.getInt("IDREPRESENTANTELEGAL"); 
+                unidade += rs.getInt("CODREPLEGAL"); 
             }
             FabricaConexao.fecharConexao();
         } catch (SQLException ex) {
@@ -121,7 +118,7 @@ public class UnidadeDAO {
         try {
             Connection conexao = FabricaConexao.getConexao();
             String consulta = "SELECT IDUNIDADE, DESCRICAO, TAMANHO, HISTORIA, HISTORIADOADOR, "
-                    + "FABRICANTE, ORIGEM, DATADOACAO, CODDOADOR, NPATRIMONIO, PACOTE, CODCATEGORIA, VALORNF, IDDOADOR, IDREPRESENTANTELEGAL"
+                    + "FABRICANTE, ORIGEM, DATADOACAO, CODDOADOR, NPATRIMONIO, PACOTE, CODCATEGORIA, VALORNF, CODREPLEGAL"
                     + "FROM UNIDADE WHERE DESCRICAO LIKE %?%";
             PreparedStatement ps = conexao.prepareStatement(consulta);
             ps.setString(1, descricao);
@@ -140,8 +137,7 @@ public class UnidadeDAO {
                 unidade += rs.getString("PACOTE")+"|";
                 unidade += rs.getInt("CODCATEGORIA")+"|";
                 unidade += rs.getFloat("VALORNF")+"|";
-                unidade += rs.getInt("IDDOADOR")+"|";
-                unidade += rs.getInt("IDREPRESENTANTELEGAL")+"\n"; 
+                unidade += rs.getInt("CODREPLEGAL")+"\n"; 
             }
             FabricaConexao.fecharConexao();
         } catch (SQLException ex) {
@@ -155,7 +151,7 @@ public class UnidadeDAO {
         try {
             Connection conexao = FabricaConexao.getConexao();
             String consulta = "SELECT IDUNIDADE, DESCRICAO, TAMANHO, HISTORIA, HISTORIADOADOR, "
-                    + "FABRICANTE, ORIGEM, DATADOACAO, CODDOADOR, NPATRIMONIO, PACOTE, CODCATEGORIA, VALORNF, IDDOADOR, IDREPRESENTANTELEGAL"
+                    + "FABRICANTE, ORIGEM, DATADOACAO, CODDOADOR, NPATRIMONIO, PACOTE, CODCATEGORIA, VALORNF, CODREPLEGAL"
                     + "FROM UNIDADE";
             PreparedStatement ps = conexao.prepareStatement(consulta);
             ResultSet rs = ps.executeQuery();
@@ -173,8 +169,7 @@ public class UnidadeDAO {
                 unidade += rs.getString("PACOTE")+"|";
                 unidade += rs.getInt("CODCATEGORIA")+"|";
                 unidade += rs.getFloat("VALORNF")+"|";
-                unidade += rs.getInt("IDDOADOR")+"|";
-                unidade += rs.getInt("IDREPRESENTANTELEGAL")+"\n"; 
+                unidade += rs.getInt("CODREPLEGAL")+"\n"; 
             }
             FabricaConexao.fecharConexao();
         } catch (SQLException ex) {

@@ -18,15 +18,14 @@ public class Unidade {
     private String pacote;
     private Integer codCategoria;
     private float valorNf;
-    private Integer idDoador;
-    private Integer idRepresentanteLegal;
+    private Integer codRepLegal;
 
-    public Integer getIdDoador() {
-        return idDoador;
+    public Integer getCodRepLegal() {
+        return codRepLegal;
     }
 
-    public void setIdDoador(Integer idDoador) {
-        this.idDoador = idDoador;
+    public void setCodRepLegal(Integer codRepLegal) {
+        this.codRepLegal = codRepLegal;
     }
 
     public Integer getIdUnidade() {
@@ -132,15 +131,4 @@ public class Unidade {
     public void setValorNf(float valorNf) {
         this.valorNf = valorNf;
     }
-
-    public Integer getIdRepresentanteLegal() {
-        return idRepresentanteLegal;
-    }
-
-    public void setIdRepresentanteLegal(Integer idRepresentanteLegal) {
-        this.idRepresentanteLegal = idRepresentanteLegal;
-    }
-    
-    
-    
 }

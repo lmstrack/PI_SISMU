@@ -47,8 +47,7 @@ public class TesteConexao {
         uni.setPacote("Teste");
         uni.setCodCategoria(2);
         uni.setValorNf(0);
-        uni.setIdDoador(4);
-        uni.setIdRepresentanteLegal(1);
+        uni.setCodRepLegal(1);
         
         uniD.insertUnidade(uni);     
         
