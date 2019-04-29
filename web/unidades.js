@@ -1,6 +1,17 @@
 let codigoUnidade = document.getElementById("codigo-unidade");
 let descricaoUnidade = document.getElementById("descricao-unidade");
+let tamanhoUnidade = document.getElementById("tamanho-unidade");
+let historiaUnidade = document.getElementById("historia-unidade");
+let historiaDoadorUnidade = document.getElementById("historia-doador-unidade");
+let fabricanteUnidade = document.getElementById("fabricante-unidade");
+let origemUnidade = document.getElementById("origem-unidade");
+let dataDoacaoUnidade = document.getElementById("data-doacao-unidade");
+let codigoDoadorUnidade = document.getElementById("codigo-doador-unidade");
+let numeroPatrimonioUnidade = document.getElementById("numero-patrimonio-unidade");
+let pacoteUnidade = document.getElementById("pacote-unidade");
 let categoriaUnidade = document.getElementById("categoria-unidade");
+let valorNfUnidade = document.getElementById("valor-nf-unidade");
+
 let btSalvar = document.getElementById("salvar");
 let btCancelar = document.getElementById("cancelar");
 let btExcluir = document.getElementById("excluir");

@@ -16,7 +16,7 @@ public class UnidadeDAO {
             Connection conexao = FabricaConexao.getConexao();
             PreparedStatement ps = conexao.prepareCall("INSERT INTO UNIDADE (IDUNIDADE, DESCRICAO, TAMANHO, HISTORIA, HISTORIADOADOR, "
                     + "FABRICANTE, ORIGEM, DATADOACAO, CODDOADOR, NPATRIMONIO, PACOTE, CODCATEGORIA, VALORNF, CODREPLEGAL) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, unidade.getIdUnidade());
             ps.setString(2, unidade.getDescricao());
             ps.setString(3, unidade.getTamanho());
@@ -56,8 +56,8 @@ public class UnidadeDAO {
             ps.setString(10, unidade.getPacote());
             ps.setInt(11, unidade.getCodCategoria());
             ps.setFloat(12, unidade.getValorNf());
-            ps.setInt(14, unidade.getCodRepLegal());  
-            ps.setInt(15, unidade.getIdUnidade());
+            ps.setInt(13, unidade.getCodRepLegal());  
+            ps.setInt(14, unidade.getIdUnidade());
             ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);

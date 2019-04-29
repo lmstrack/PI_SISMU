@@ -74,6 +74,7 @@
                                     <input class="form-control" type="text" id="origem-unidade"/>
                                     
                                     <label for="data-doacao-unidade">Data de doação</label>
+                                    <input class="form-control" type="date" data-date="" data-date-format="DD MMMM YYYY" value="2015-08-09" id="data-doacao-unidade"/>
                                     <input class="form-control" type="text" id="data-doacao-unidade"/>
                                     
                                     <label for="codigo-doador-unidade">Código doador</label>
@@ -91,8 +92,7 @@
                                     </select>
                                     
                                     <label for="valor-nf-unidade">Valor NF</label>
-                                    <input class="form-control" type="text" id="valor-nf-unidade"/>
-                                    
+                                    <input class="form-control" type="number" min="0" step="0.01" value="0.00" id="valor-nf-unidade"/>
                                     <button type="button" class="btn btn-primary botao-cadastro" id="salvar">Salvar</button>
                                     <button type="button" class="btn btn-secondary botao-cadastro" id="cancelar">Cancelar</button>
                                     <button type="button" class="btn btn-danger botao-cadastro" id="excluir">Excluir</button>
