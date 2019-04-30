@@ -53,13 +53,14 @@ function btSalvarClick() {
     const origem = origemUnidade.value;
     const data = dataDoacaoUnidade.value;
     const doador = codigoDoadorUnidade.value;
-    const patrimonio = numeroPatrimonioUnidade.value;
+    const patrimonio = numeroPatrimonioUnidade.value;c
+    const pacote = pacoteUnidade.value;
     const categoria = codigoCategoria.value;
     const valor = valorNfUnidade.value;
     const repLegal = codigoRepLegalUnidade.value;
     return axios
     .post(`FunctionsUnidade?fun=${fun}&codigo=${codigo}&descricao=${descricao}&tamanho=${tamanho}&historia=${historia}&historiaD=${historiaD}
-          &fabricante=${fabricante}&origem=${origem}&data=${data}&doador=${doador}&patrimonio=${patrimonio}&categoria=${categoria}&valor=${valor}`)
+          &fabricante=${fabricante}&origem=${origem}&data=${data}&doador=${doador}&patrimonio=${patrimonio}&pacote=${pacote}&categoria=${categoria}&valor=${valor}`)
     .then(response => {
         alert("Unidade salva com sucesso!");
         location.reload();

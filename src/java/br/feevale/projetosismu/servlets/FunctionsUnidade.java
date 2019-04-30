@@ -48,29 +48,27 @@ public class FunctionsUnidade extends HttpServlet {
             String pacote;
             String codCategoria;
             String valorNf;
-            String idDoador;
-            String idRepresentanteLegal;
+            String codRepLegal;
             
             switch(funcao) {
                 case "salvarUnidade":
-                    idUnidade = request.getParameter("idunidade");
+                    idUnidade = request.getParameter("codigo");
                     descricao = request.getParameter("descricao");
                     tamanho = request.getParameter("tamanho");
                     historia = request.getParameter("historia");
-                    historiaDoador = request.getParameter("historiaDoador");
+                    historiaDoador = request.getParameter("historiaD");
                     fabricante = request.getParameter("fabricante");
                     origem = request.getParameter("origem");
-                    dataDoacao = request.getParameter("dataDoacao");
-                    codDoador = request.getParameter("codDoador");
-                    nPatrimonio = request.getParameter("nPatrimonio");
+                    dataDoacao = request.getParameter("data");
+                    codDoador = request.getParameter("doador");
+                    nPatrimonio = request.getParameter("patrimonio");
                     pacote = request.getParameter("pacote");
-                    codCategoria = request.getParameter("codCategoria");
-                    valorNf = request.getParameter("valorNf");
-                    idDoador = request.getParameter("idDoador");
-                    idRepresentanteLegal = request.getParameter("idRepresentanteLegal");
+                    codCategoria = request.getParameter("categoria");
+                    valorNf = request.getParameter("valor");
+                    codRepLegal = request.getParameter("repLegal");
                     inserirUnidade(idUnidade, descricao, tamanho, historia, historiaDoador,
                             fabricante, origem, dataDoacao, codDoador, nPatrimonio, pacote, codCategoria,
-                            valorNf, idDoador, idRepresentanteLegal);
+                            valorNf, codRepLegal);
                     break;
                 
                 case "excluirUnidade":
@@ -131,8 +129,8 @@ public class FunctionsUnidade extends HttpServlet {
 
     private void inserirUnidade(String idUnidade, String descricao, String tamanho, String historia, 
             String historiaDoador, String fabricante, String origem, String dataDoacao, String codDoador, 
-            String nPatrimonio, String pacote, String codCategoria, String valorNf, String idDoador,
-            String idRepresentanteLegal) {
+            String nPatrimonio, String pacote, String codCategoria, String valorNf, String codRepLegal) {
+       
         
     }
 
