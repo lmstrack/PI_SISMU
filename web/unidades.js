@@ -11,6 +11,7 @@ let numeroPatrimonioUnidade = document.getElementById("numero-patrimonio-unidade
 let pacoteUnidade = document.getElementById("pacote-unidade");
 let categoriaUnidade = document.getElementById("categoria-unidade");
 let valorNfUnidade = document.getElementById("valor-nf-unidade");
+let codigoRepLegalUnidade = document.getElementById("codigo-replegal-unidade");
 
 let btSalvar = document.getElementById("salvar");
 let btCancelar = document.getElementById("cancelar");
@@ -45,8 +46,20 @@ function btSalvarClick() {
     const fun = "salvarUnidade";
     const codigo = codigoUnidade.value;
     const descricao = descricaoUnidade.value;
+    const tamanho = tamanhoUnidade.value;
+    const historia = historiaUnidade.value;
+    const historiaD = historiaDoadorUnidade.value;
+    const fabricante = fabricanteUnidade.value;
+    const origem = origemUnidade.value;
+    const data = dataDoacaoUnidade.value;
+    const doador = codigoDoadorUnidade.value;
+    const patrimonio = numeroPatrimonioUnidade.value;
+    const categoria = codigoCategoria.value;
+    const valor = valorNfUnidade.value;
+    const repLegal = codigoRepLegalUnidade.value;
     return axios
-    .post(`FunctionsUnidade?fun=${fun}&codigo=${codigo}&descricao=${descricao}`)
+    .post(`FunctionsUnidade?fun=${fun}&codigo=${codigo}&descricao=${descricao}&tamanho=${tamanho}&historia=${historia}&historiaD=${historiaD}
+          &fabricante=${fabricante}&origem=${origem}&data=${data}&doador=${doador}&patrimonio=${patrimonio}&categoria=${categoria}&valor=${valor}`)
     .then(response => {
         alert("Unidade salva com sucesso!");
         location.reload();
