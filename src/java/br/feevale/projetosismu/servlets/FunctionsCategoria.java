@@ -37,7 +37,7 @@ public class FunctionsCategoria extends HttpServlet {
                     lerCategoria(codigo, out);
                     break;
                 case "listarCategorias":
-                    listarCategoria(out);
+                    listarCategorias(out);
                     break;
             }            
         }
@@ -79,7 +79,7 @@ public class FunctionsCategoria extends HttpServlet {
         catDAO.deleteCategoria(Integer.parseInt(codigo));
     }
 
-    private void listarCategoria(PrintWriter out) {
+    private void listarCategorias(PrintWriter out) {
         String categorias;
         CategoriaDAO catDAO = new CategoriaDAO();
         categorias = catDAO.selectCategorias();

@@ -84,9 +84,7 @@ public class UnidadeDAO {
         String unidade = "";
         try {
             Connection conexao = FabricaConexao.getConexao();
-            String consulta = "SELECT IDUNIDADE, DESCRICAO, TAMANHO, HISTORIA, HISTORIADOADOR, "
-                    + "FABRICANTE, ORIGEM, DATADOACAO, CODDOADOR, NPATRIMONIO, PACOTE, CODCATEGORIA, VALORNF, CODREPLEGAL"
-                    + "FROM UNIDADE WHERE IDUNIDADE = ?";
+            String consulta = "SELECT * FROM UNIDADE WHERE IDUNIDADE = ?";
             PreparedStatement ps = conexao.prepareStatement(consulta);
             ps.setInt(1, codigo);
             ResultSet rs = ps.executeQuery();
@@ -98,7 +96,7 @@ public class UnidadeDAO {
                 unidade += rs.getString("HISTORIADOADOR")+"|";
                 unidade += rs.getString("FABRICANTE")+"|";
                 unidade += rs.getString("ORIGEM")+"|";
-                unidade += rs.getDate("DATADOACAO")+"|";
+                unidade += rs.getString("DATADOACAO")+"|";
                 unidade += rs.getInt("CODDOADOR")+"|";
                 unidade += rs.getInt("NPATRIMONIO")+"|";
                 unidade += rs.getString("PACOTE")+"|";
@@ -117,9 +115,7 @@ public class UnidadeDAO {
         String unidade = "";
         try {
             Connection conexao = FabricaConexao.getConexao();
-            String consulta = "SELECT IDUNIDADE, DESCRICAO, TAMANHO, HISTORIA, HISTORIADOADOR, "
-                    + "FABRICANTE, ORIGEM, DATADOACAO, CODDOADOR, NPATRIMONIO, PACOTE, CODCATEGORIA, VALORNF, CODREPLEGAL"
-                    + "FROM UNIDADE WHERE DESCRICAO LIKE %?%";
+            String consulta = "SELECT * FROM UNIDADE WHERE DESCRICAO LIKE %?%";
             PreparedStatement ps = conexao.prepareStatement(consulta);
             ps.setString(1, descricao);
             ResultSet rs = ps.executeQuery();
@@ -150,26 +146,12 @@ public class UnidadeDAO {
         String unidade = "";
         try {
             Connection conexao = FabricaConexao.getConexao();
-            String consulta = "SELECT IDUNIDADE, DESCRICAO, TAMANHO, HISTORIA, HISTORIADOADOR, "
-                    + "FABRICANTE, ORIGEM, DATADOACAO, CODDOADOR, NPATRIMONIO, PACOTE, CODCATEGORIA, VALORNF, CODREPLEGAL"
-                    + "FROM UNIDADE";
+            String consulta = "SELECT IDUNIDADE, DESCRICAO FROM UNIDADE";
             PreparedStatement ps = conexao.prepareStatement(consulta);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()){
+            while (rs.next()){
                 unidade += rs.getInt("IDUNIDADE")+"|";
-                unidade += rs.getString("DESCRICAO")+"|";
-                unidade += rs.getString("TAMANHO")+"|";
-                unidade += rs.getString("HISTORIA")+"|";
-                unidade += rs.getString("HISTORIADOADOR")+"|";
-                unidade += rs.getString("FABRICANTE")+"|";
-                unidade += rs.getString("ORIGEM")+"|";
-                unidade += rs.getDate("DATADOACAO")+"|";
-                unidade += rs.getInt("CODDOADOR")+"|";
-                unidade += rs.getInt("NPATRIMONIO")+"|";
-                unidade += rs.getString("PACOTE")+"|";
-                unidade += rs.getInt("CODCATEGORIA")+"|";
-                unidade += rs.getFloat("VALORNF")+"|";
-                unidade += rs.getInt("CODREPLEGAL")+"\n"; 
+                unidade += rs.getString("DESCRICAO")+"\n";
             }
             FabricaConexao.fecharConexao();
         } catch (SQLException ex) {

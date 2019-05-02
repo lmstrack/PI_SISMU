@@ -23,7 +23,7 @@ btSalvar.addEventListener("click", () => btSalvarClick());
 btCancelar.addEventListener("click", () => btCancelarClick());
 btExcluir.addEventListener("click", () => btExcluirClick());
 window.onload = () => {
-    carregaOpcoesCategoria();
+    listarCategorias();
     carregaTableUnidades();
 };
 
@@ -33,9 +33,25 @@ function codigoUnidadeFocusLost() {
     return axios
     .post(`FunctionsUnidade?fun=${fun}&codigo=${codigo}`)
     .then(response => {
-        let codigo, descricao;
-        [codigo, descricao] = response.data.split("|");
+        let codigo, descricao, tamanho, historia, historiaD, fabricante, origem, data, 
+                doador, patrimonio, pacote, categoria, valor, repLegal;
+        
+        [codigo, descricao, tamanho, historia, historiaD, fabricante, origem, data, 
+                doador, patrimonio, pacote, categoria, valor, repLegal] = response.data.split("|");
+        
         descricaoUnidade.value = descricao;
+        tamanhoUnidade.value = tamanho;
+        historiaUnidade.value = historia;
+        historiaDoadorUnidade.value = historiaD;
+        fabricanteUnidade.value = fabricante;
+        origemUnidade.value = origem;
+        dataDoacaoUnidade.value = data;
+        codigoDoadorUnidade.value = doador;
+        numeroPatrimonioUnidade.value = patrimonio;
+        pacoteUnidade.value = pacote;
+        categoriaUnidade.value = categoria;
+        valorNfUnidade.value = valor;
+        codigoRepLegalUnidade.value = repLegal;
     })
     .catch(error => {
         alert('oops, algo deu errado!', error);
@@ -53,14 +69,13 @@ function btSalvarClick() {
     const origem = origemUnidade.value;
     const data = dataDoacaoUnidade.value;
     const doador = codigoDoadorUnidade.value;
-    const patrimonio = numeroPatrimonioUnidade.value;c
+    const patrimonio = numeroPatrimonioUnidade.value;
     const pacote = pacoteUnidade.value;
-    const categoria = codigoCategoria.value;
+    const categoria = categoriaUnidade.value;
     const valor = valorNfUnidade.value;
     const repLegal = codigoRepLegalUnidade.value;
     return axios
-    .post(`FunctionsUnidade?fun=${fun}&codigo=${codigo}&descricao=${descricao}&tamanho=${tamanho}&historia=${historia}&historiaD=${historiaD}
-          &fabricante=${fabricante}&origem=${origem}&data=${data}&doador=${doador}&patrimonio=${patrimonio}&pacote=${pacote}&categoria=${categoria}&valor=${valor}`)
+    .post(`FunctionsUnidade?fun=${fun}&codigo=${codigo}&descricao=${descricao}&tamanho=${tamanho}&historia=${historia}&historiaD=${historiaD}&fabricante=${fabricante}&origem=${origem}&data=${data}&doador=${doador}&patrimonio=${patrimonio}&pacote=${pacote}&categoria=${categoria}&valor=${valor}&repLegal=${repLegal}`)
     .then(response => {
         alert("Unidade salva com sucesso!");
         location.reload();
@@ -78,7 +93,6 @@ function btExcluirClick() {
     if (confirm("Deseja realmente excluir a unidade?")) {
         const fun = "excluirUnidade";
         const codigo = codigoUnidade.value;
-        const descricao = descricaoUnidade.value;
         return axios
         .post(`FunctionsUnidade?fun=${fun}&codigo=${codigo}`)
         .then(response => {
@@ -113,12 +127,25 @@ function carregaTableUnidades() {
     });
 }
 
-function carregaOpcoesCategoria() {
-    const opcoes = ["Opc1", "Opc2", "Opc3", "Opc4", "Opc5"];
-    for (var opc of opcoes) {
-        var elemento = document.createElement('option');
-        elemento.appendChild(document.createTextNode(opc));
-        elemento.value = opc.substring(3);
-        categoriaUnidade.appendChild(elemento);
-    }
+function listarCategorias() {
+    const fun = "listarCategorias";
+    return axios
+    .post(`FunctionsUnidade?fun=${fun}`)
+    .then(response => {
+        
+        let linhas = response.data.split("\n");
+        let codigo,descricao;
+        for (let linha of linhas){
+            if (linha != ""){     
+                var elemento = document.createElement('option');
+                [codigo, descricao] = linha.split("|");
+                elemento.appendChild(document.createTextNode(descricao));
+                elemento.value = codigo;
+                categoriaUnidade.appendChild(elemento);
+            }
+        }
+    })
+    .catch(error => {
+        alert('oops, algo deu errado!', error);
+    });
 }

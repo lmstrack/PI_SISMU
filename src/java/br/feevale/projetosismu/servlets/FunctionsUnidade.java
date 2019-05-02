@@ -5,9 +5,14 @@
  */
 package br.feevale.projetosismu.servlets;
 
+import br.feevale.projetosismu.dao.CategoriaDAO;
+import br.feevale.projetosismu.dao.UnidadeDAO;
+import br.feevale.projetosismu.entity.Unidade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +25,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "FunctionsUnidade", urlPatterns = {"/FunctionsUnidade"})
 public class FunctionsUnidade extends HttpServlet {
+    
+    UnidadeDAO uniDAO = new UnidadeDAO();
+    CategoriaDAO catDAO = new CategoriaDAO();
+    Unidade uni = new Unidade();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -72,15 +81,23 @@ public class FunctionsUnidade extends HttpServlet {
                     break;
                 
                 case "excluirUnidade":
-                    idUnidade = request.getParameter("idunidade");
+                    idUnidade = request.getParameter("codigo");
                     excluirUnidade(idUnidade);
                     break;
                    
                 case "lerUnidade":
+                    idUnidade = request.getParameter("codigo");
+                    lerUnidade(idUnidade, out);
+                    break;
+                
+                case "listarUnidades":
+                    listarUnidades(out);
+                    break;
                     
+                case "listarCategorias":
+                    listarCategorias(out);
+                    break;
             }
-            
-            
         }
     }
 
@@ -123,15 +140,69 @@ public class FunctionsUnidade extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void excluirUnidade(String idUnidade) {
-        
+    private void excluirUnidade(String codigo) {
+        uniDAO.deleteUnidade(Integer.parseInt(codigo));
     }
 
     private void inserirUnidade(String idUnidade, String descricao, String tamanho, String historia, 
             String historiaDoador, String fabricante, String origem, String dataDoacao, String codDoador, 
             String nPatrimonio, String pacote, String codCategoria, String valorNf, String codRepLegal) {
-       
         
+        uni.setIdUnidade(Integer.parseInt(idUnidade));
+        uni.setDescricao(descricao);
+        uni.setTamanho(tamanho);
+        uni.setHistoria(historia);
+        uni.setHistoriaDoador(historiaDoador);
+        uni.setFabricante(fabricante);
+        uni.setOrigem(origem);
+        
+//      Tratamento de Data
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
+        java.util.Date date = null;
+        try {
+            date = sdf1.parse(dataDoacao); // Returns a Date format object with the pattern
+        } catch (ParseException ex){
+            System.out.println("Erro ao converter data");
+        }
+        
+        java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+        uni.setDataDoacao(sqlStartDate);
+        
+        uni.setCodDoador(Integer.parseInt(codDoador));
+        uni.setnPatrimonio(Integer.parseInt(nPatrimonio));
+        uni.setPacote(pacote);
+        uni.setCodCategoria(Integer.parseInt(codCategoria));
+        uni.setValorNf(Float.parseFloat(valorNf));
+        uni.setCodRepLegal(Integer.parseInt(codRepLegal));
+        
+//      Verifica se unidade já existe, se sim, atualiza unidade existente
+        if (uniDAO.selectCodUnidade(Integer.parseInt(idUnidade)).isEmpty()){
+            uniDAO.insertUnidade(uni);
+        } else{
+            uniDAO.updateUnidade(uni);
+        }
+    }
+       
+    private void listarCategorias(PrintWriter out) {
+        String categorias;
+        categorias = catDAO.selectCategorias();
+        out.print(categorias);
+    }
+
+    private void lerUnidade(String codigo, PrintWriter out) {
+        String unidade;
+        unidade = uniDAO.selectCodUnidade(Integer.parseInt(codigo));
+        if (unidade.isEmpty()){
+            out.print("|||||||||||||");
+        }else{
+            out.print(unidade);
+        }
+    }
+
+    private void listarUnidades(PrintWriter out) {
+        String unidades;
+        unidades = uniDAO.selectUnidades();
+        out.print(unidades);
     }
 
 }
