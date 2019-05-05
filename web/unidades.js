@@ -23,7 +23,7 @@ btSalvar.addEventListener("click", () => btSalvarClick());
 btCancelar.addEventListener("click", () => btCancelarClick());
 btExcluir.addEventListener("click", () => btExcluirClick());
 window.onload = () => {
-    listarCategorias();
+    carregaOpcoesCategorias();
     carregaTableUnidades();
 };
 
@@ -127,7 +127,7 @@ function carregaTableUnidades() {
     });
 }
 
-function listarCategorias() {
+function carregaOpcoesCategorias() {
     const fun = "listarCategorias";
     return axios
     .post(`FunctionsUnidade?fun=${fun}`)
