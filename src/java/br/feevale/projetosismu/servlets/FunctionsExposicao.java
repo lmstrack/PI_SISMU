@@ -31,11 +31,11 @@ public class FunctionsExposicao extends HttpServlet {
             
             switch(funcao) {
                 case "salvarExposicao":
-                    codigo = request.getParameter("codigo");
-                    dataInicio = request.getParameter("data-inicio");                  
-                    dataFim = request.getParameter("data-fim");                  
+                    codigo = request.getParameter("codigo");                
                     codExpositor = request.getParameter("expositor");                  
-                    codUnidade = request.getParameter("unidade");                  
+                    codUnidade = request.getParameter("unidades");
+                    dataInicio = request.getParameter("datIni");                  
+                    dataFim = request.getParameter("datFim");
                     salvarExposicao(codigo, dataInicio, dataFim, codExpositor, codUnidade);
                     break;
                 case "excluirExposicao":
