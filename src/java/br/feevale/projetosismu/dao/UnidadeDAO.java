@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +26,11 @@ public class UnidadeDAO {
             ps.setString(6, unidade.getFabricante());
             ps.setString(7, unidade.getOrigem());
             ps.setDate(8, unidade.getDataDoacao());
-            ps.setInt(9, unidade.getCodDoador());
+            if (unidade.getCodDoador() == null) {
+                ps.setNull(9, Types.INTEGER);
+            } else {
+                ps.setInt(9, unidade.getCodDoador());
+            }
             ps.setInt(10, unidade.getnPatrimonio());
             ps.setString(11, unidade.getPacote());
             ps.setInt(12, unidade.getCodCategoria());

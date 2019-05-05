@@ -15,18 +15,24 @@ btExcluir.addEventListener("click", () => btExcluirClick());
 window.onload = () => {
     carregaOpcoesExpositor();
     carregaOpcoesUnidade();
-    carregaCardsExposicoes();
+    carregaTableExposicoes();
 };
 
 function idExposicaoFocusLost() {
     const fun = "lerExposicao";
     const codigo = idExposicao.value;
+    if (codigo == "") {
+        return;
+    }
     return axios
     .post(`FunctionsExposicao?fun=${fun}&codigo=${codigo}`)
     .then(response => {
-        let codigo,descricao ;
-        [codigo, descricao] = response.data.split("|");
-        //descricaoCategoria.value = descricao;
+        let id, expositor, unidade, dataInicio, dataFim;
+        [id, expositor, unidade, dataInicio, dataFim] = response.data.split("|");
+        expositorExposicao.value = expositor;
+        unidadeExposicao.value = unidade;
+        dataInicioExposicao.value = dataInicio;
+        dataFimExposicao.value = dataFim;
     })
     .catch(error => {
         alert('oops, algo deu errado!', error);
@@ -74,7 +80,7 @@ function btExcluirClick() {
         });
     }
 }
-
+/*
 function carregaCardsExposicoes(){
     let conteudo = `<div class="row">
         <div class="col-sm-4">
@@ -163,20 +169,20 @@ function carregaCardsExposicoes(){
     </div>`;
     
     tableExposicoes.innerHTML = conteudo;
-}
+}*/
 
 function carregaTableExposicoes() {
     const fun = "listarExposicoes";
     return axios
     .post(`FunctionsExposicao?fun=${fun}`)
     .then(response => {
-        let conteudo = `<thead><tr><th scope="col">Código</th><th scope="col">Descrição</th></tr></thead><tbody>`;
+        let conteudo = `<thead><tr><th scope="col">ID</th><th scope="col">Expositor</th><th scope="col">Unidade</th><th scope="col">Data início</th><th scope="col">Data fim</th></tr></thead><tbody>`;
         let linhas = response.data.split("\n");
-        let codigo,descricao ;
+        let codigo,expositor, unidade, dataInicio, dataFim ;
         for (let linha of linhas){
             if (linha != ""){     
-                [codigo, descricao] = linha.split("|");
-                conteudo += `<tr><th scope="row">${codigo}</th><td>${descricao}</td></tr>`;
+                [codigo, expositor, unidade, dataInicio, dataFim] = linha.split("|");
+                conteudo += `<tr><th scope="row">${codigo}</th><td>${expositor}</td><td>${unidade}</td><td>${dataInicio}</td><td>${dataFim}</td></tr>`;
             }
         }
         conteudo += `</tbody>`;
@@ -188,23 +194,48 @@ function carregaTableExposicoes() {
 }
 
 function carregaOpcoesExpositor() {
-    const opcoes = ["Opc1", "Opc2", "Opc3", "Opc4", "Opc5"];
-    for (var opc of opcoes) {
-        var elemento = document.createElement('option');
-        elemento.appendChild(document.createTextNode(opc));
-        elemento.value = opc.substring(3);
-        expositorExposicao.appendChild(elemento);
-    }
+    const fun = "listarExpositores";
+    return axios
+    .post(`FunctionsExposicao?fun=${fun}`)
+    .then(response => {
+        
+        let linhas = response.data.split("\n");
+        let codigo,descricao;
+        for (let linha of linhas){
+            if (linha != ""){     
+                var elemento = document.createElement('option');
+                [codigo, descricao] = linha.split("|");
+                elemento.appendChild(document.createTextNode(descricao));
+                elemento.value = codigo;
+                expositorExposicao.appendChild(elemento);
+            }
+        }
+    })
+    .catch(error => {
+        alert('oops, algo deu errado!', error);
+    });
 }
 
 function carregaOpcoesUnidade() {
-    const opcoes = ["xxx1", "xxx2", "xxx3", "xxx4", "xxx5"];
-    for (var opc of opcoes) {
-        var elemento = document.createElement('option');
-        elemento.setAttribute("class","unidade");
-        elemento.appendChild(document.createTextNode(opc));
-        elemento.value = opc.substring(3);
-        unidadeExposicao.appendChild(elemento);
-    }
+    const fun = "listarUnidades";
+    return axios
+    .post(`FunctionsExposicao?fun=${fun}`)
+    .then(response => {
+        
+        let linhas = response.data.split("\n");
+        let codigo,descricao;
+        for (let linha of linhas){
+            if (linha != ""){     
+                var elemento = document.createElement('option');
+                [codigo, descricao] = linha.split("|");
+                elemento.appendChild(document.createTextNode(descricao));
+                elemento.value = codigo;
+                unidadeExposicao.appendChild(elemento);
+            }
+        }
+    })
+    .catch(error => {
+        alert('oops, algo deu errado!', error);
+    });
 }
 }

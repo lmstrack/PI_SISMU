@@ -1,88 +1,151 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package br.feevale.projetosismu.servlets;
 
+import br.feevale.projetosismu.dao.ExposicaoDAO;
+import br.feevale.projetosismu.dao.ExpositorDAO;
+import br.feevale.projetosismu.dao.UnidadeDAO;
+import br.feevale.projetosismu.entity.Exposicao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author LUCASSTRACK
- */
-@WebServlet(name = "FunctionsExposicao", urlPatterns = {"/FunctionsExposicao"})
+@WebServlet(urlPatterns = {"/FunctionsExposicao"})
 public class FunctionsExposicao extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet FunctionsExposicao</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet FunctionsExposicao at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String funcao = request.getParameter("fun");
+            String codigo;
+            String dataInicio;
+            String dataFim;
+            String codExpositor;
+            String codUnidade;
+            
+            switch(funcao) {
+                case "salvarExposicao":
+                    codigo = request.getParameter("codigo");
+                    dataInicio = request.getParameter("data-inicio");                  
+                    dataFim = request.getParameter("data-fim");                  
+                    codExpositor = request.getParameter("expositor");                  
+                    codUnidade = request.getParameter("unidade");                  
+                    salvarExposicao(codigo, dataInicio, dataFim, codExpositor, codUnidade);
+                    break;
+                case "excluirExposicao":
+                    codigo = request.getParameter("codigo");
+                    excluirExposicao(codigo);
+                    break;
+                case "lerExposicao":
+                    codigo = request.getParameter("codigo");
+                    lerExposicao(codigo, out);
+                    break;
+                case "listarExposicoes":
+                    listarExposicoes(out);
+                    break;
+                case "listarExpositores":
+                    listarExpositores(out);
+                    break;
+                case "listarUnidades":
+                    listarUnidades(out);
+                    break;
+            }            
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
+    
+ @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    private void salvarExposicao(String codigo, String dataInicio, String dataFim, String codExpositor, String codUnidade) {
+        Exposicao exp = new Exposicao();
+        ExposicaoDAO expDAO = new ExposicaoDAO();
+        exp.setIdExposicao(Integer.parseInt(codigo));
+        exp.setCodExpositor(Integer.parseInt(codExpositor));
+        exp.setCodUnidade(Integer.parseInt(codUnidade));
 
+//      Tratamento de Data
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
+        java.util.Date date = null;
+        try {
+            date = sdf1.parse(dataInicio); // Returns a Date format object with the pattern
+            java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+            exp.setDataInicio(sqlStartDate);
+        } catch (ParseException ex){
+            System.out.println("Erro ao converter data");
+        }
+
+//      Tratamento de Data
+        SimpleDateFormat sdf12 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
+        java.util.Date date2 = null;
+        try {
+            date2 = sdf12.parse(dataFim); // Returns a Date format object with the pattern
+            java.sql.Date sqlStartDate = new java.sql.Date(date2.getTime());
+            exp.setDataFim(sqlStartDate);
+        } catch (ParseException ex){
+            System.out.println("Erro ao converter data");
+        }
+
+        if (expDAO.selectExposicao(Integer.parseInt(codigo)).isEmpty()){
+            expDAO.insertExposicao(exp);
+        } else{
+            expDAO.updateExposicao(exp);
+        }
+    }
+    
+    private void excluirExposicao(String codigo) {
+        ExposicaoDAO expDAO = new ExposicaoDAO();
+        expDAO.deleteExposicao(Integer.parseInt(codigo));
+    }
+
+    private void listarExposicoes(PrintWriter out) {
+        String exposicoes;
+        ExposicaoDAO expDAO = new ExposicaoDAO();
+        exposicoes = expDAO.selectExposicoes();
+        out.print(exposicoes);
+    }
+
+    private void listarExpositores(PrintWriter out) {
+        String expositores;
+        ExpositorDAO expDAO = new ExpositorDAO();
+        expositores = expDAO.selectExpositores();
+        out.print(expositores);
+    }
+
+    private void listarUnidades(PrintWriter out) {
+        String unidades;
+        UnidadeDAO uniDAO = new UnidadeDAO();
+        unidades = uniDAO.selectUnidades();
+        out.print(unidades);
+    }
+
+    private void lerExposicao(String codigo, PrintWriter out) {
+        String exposicao;
+        ExposicaoDAO expDAO = new ExposicaoDAO();
+        exposicao = expDAO.selectExposicao(Integer.parseInt(codigo));
+        if (exposicao.isEmpty()){
+            out.print("|");
+        }else{
+            out.print(exposicao);
+        }
+    }
 }

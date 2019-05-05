@@ -4,12 +4,11 @@ package br.feevale.projetosismu.entity;
 import java.sql.Date;
 
 public class Exposicao {
-
     private Integer idExposicao;
     private Date dataInicio;
     private Date dataFim;
     private Integer codExpositor;
-    private String codUnidade;
+    private Integer codUnidade;
 
     public Integer getIdExposicao() {
         return idExposicao;
@@ -43,11 +42,11 @@ public class Exposicao {
         this.codExpositor = codExpositor;
     }
 
-    public String getCodUnidade() {
+    public Integer getCodUnidade() {
         return codUnidade;
     }
 
-    public void setCodUnidade(String codUnidade) {
+    public void setCodUnidade(Integer codUnidade) {
         this.codUnidade = codUnidade;
     }
 }

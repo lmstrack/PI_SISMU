@@ -10,7 +10,6 @@ import br.feevale.projetosismu.dao.UnidadeDAO;
 import br.feevale.projetosismu.entity.Unidade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
@@ -161,14 +160,17 @@ public class FunctionsUnidade extends HttpServlet {
         java.util.Date date = null;
         try {
             date = sdf1.parse(dataDoacao); // Returns a Date format object with the pattern
+            java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+            uni.setDataDoacao(sqlStartDate);
         } catch (ParseException ex){
             System.out.println("Erro ao converter data");
         }
         
-        java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
-        uni.setDataDoacao(sqlStartDate);
-        
-        uni.setCodDoador(Integer.parseInt(codDoador));
+        if (!codDoador.isEmpty()) {
+            uni.setCodDoador(Integer.parseInt(codDoador));
+        } else {
+            uni.setCodDoador(null);
+        }
         uni.setnPatrimonio(Integer.parseInt(nPatrimonio));
         uni.setPacote(pacote);
         uni.setCodCategoria(Integer.parseInt(codCategoria));
