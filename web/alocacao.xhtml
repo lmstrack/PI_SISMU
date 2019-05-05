@@ -49,31 +49,39 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <h1>Alocação de unidades</h1>
+                            <h1>Cadastro de Exposições</h1>
                             <h:form id="alocacao-unidades">
                                 <div class="form-group">
                                     <label for="id-exposicao">ID exposição</label>
                                     <input class="form-control" type="text" id="id-exposicao"/>
+                                    
+                                    <label for="data-inicio-exposicao">Data de início</label>
+                                    <input class="form-control" type="date" data-date="" data-date-format="DD MMMM YYYY" value="" id="data-inicio-exposicao"/>
+                                    
+                                    <label for="data-fim-exposicao">Data de fim</label>
+                                    <input class="form-control" type="date" data-date="" data-date-format="DD MMMM YYYY" value="" id="data-fim-exposicao"/>
+                                    
                                     <label for="expositor-exposicao">Expositor</label>
                                     <select class="custom-select" id="expositor-exposicao">
                                       <option>Escolha o expositor...</option>
                                     </select>
-                                    <label for="unidade-exposicao">Unidade</label>
-                                    <select class="custom-select" id="unidade-exposicao">
-                                      <option>Escolha a unidade...</option>
+                                   
+                                    <label for="unidade-exposicao" >Unidade</label>
+                                    <select class="form-control" id="unidade-exposicao">
+                                        <option>Escolha o expositor...</option>  
                                     </select>
-                                    <label for="data-inicio-exposicao">Data de início</label>
-                                    <input class="form-control" type="date" data-date="" data-date-format="DD MMMM YYYY" value="" id="data-inicio-exposicao"/>
-                                    <label for="data-fim-exposicao">Data de fim</label>
-                                    <input class="form-control" type="date" data-date="" data-date-format="DD MMMM YYYY" value="" id="data-fim-exposicao"/>
+                                    
                                     <button type="button" class="btn btn-primary botao-cadastro" id="salvar">Salvar</button>
                                     <button type="button" class="btn btn-secondary botao-cadastro" id="cancelar">Cancelar</button>
                                     <button type="button" class="btn btn-danger botao-cadastro" id="excluir">Excluir</button>
                                 </div>
                             </h:form>
                             <br/>
+                            
+                            <h3>Exposições</h3>
                             <table class="table table-hover" id="table-exposicoes">
                             </table>                            
+                            
                         </div>
                     </div>
                 </div>

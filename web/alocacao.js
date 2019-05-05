@@ -207,3 +207,4 @@ function carregaOpcoesUnidade() {
         unidadeExposicao.appendChild(elemento);
     }
 }
+}
