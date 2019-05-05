@@ -50,7 +50,7 @@ function codigoUnidadeFocusLost() {
         numeroPatrimonioUnidade.value = patrimonio;
         pacoteUnidade.value = pacote;
         categoriaUnidade.value = categoria;
-        valorNfUnidade.value = valor;
+        valorNfUnidade.value = parseFloat(valor).toFixed(2);
         codigoRepLegalUnidade.value = repLegal;
     })
     .catch(error => {

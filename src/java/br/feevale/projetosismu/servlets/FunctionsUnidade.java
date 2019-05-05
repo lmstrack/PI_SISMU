@@ -168,7 +168,11 @@ public class FunctionsUnidade extends HttpServlet {
         java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
         uni.setDataDoacao(sqlStartDate);
         
-        uni.setCodDoador(Integer.parseInt(codDoador));
+        if (!codDoador.isEmpty()) {
+            uni.setCodDoador(Integer.parseInt(codDoador));
+        } else {
+            uni.setCodDoador(null);
+        }
         uni.setnPatrimonio(Integer.parseInt(nPatrimonio));
         uni.setPacote(pacote);
         uni.setCodCategoria(Integer.parseInt(codCategoria));
