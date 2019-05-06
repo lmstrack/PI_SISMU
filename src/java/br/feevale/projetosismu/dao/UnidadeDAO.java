@@ -170,12 +170,12 @@ public class UnidadeDAO {
         String unidade = "";
         try {
             Connection conexao = FabricaConexao.getConexao();
-            String consulta = "SELECT UN.IDUNIDADE, UN.DESCRICAO FROM UNIDADE UN WHERE IDUNIDADE NOT IN (SELECT EX.CODUNIDADE FROM EXPOSICAO EX WHERE EX.DATAINICIO BETWEEN ? AND ? OR EX.DATAFIM BETWEEN ? AND ? AND EX.CODUNIDADE = UN.IDUNIDADE)";
+            String consulta = "SELECT UN.IDUNIDADE, UN.DESCRICAO FROM UNIDADE UN WHERE IDUNIDADE NOT IN (SELECT EX.CODUNIDADE FROM EXPOSICAO EX WHERE (EX.DATAINICIO BETWEEN ? AND ? OR (EX.DATAINICIO < ? AND EX.DATAFIM > ?))AND EX.CODUNIDADE = UN.IDUNIDADE)";
             PreparedStatement ps = conexao.prepareStatement(consulta);
             ps.setDate(1, inicio);
             ps.setDate(2, fim);
             ps.setDate(3, inicio);
-            ps.setDate(4, fim);
+            ps.setDate(4, inicio);
             System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
