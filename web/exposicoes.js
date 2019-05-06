@@ -11,6 +11,7 @@ let cardsExposicoes = document.getElementById("cards-exposicoes");
 
 
 idExposicao.addEventListener("focusout", () => idExposicaoFocusLost());
+unidadeDatFim.addEventListener("focusout", () => unidadeDatFimFocusLost());
 btSalvar.addEventListener("click", () => btSalvarClick());
 btCancelar.addEventListener("click", () => btCancelarClick());
 btExcluir.addEventListener("click", () => btExcluirClick());
@@ -19,7 +20,7 @@ window.onload = () => {
     carregaOpcoesExpositor();
     carregaOpcoesUnidade();
     carregaTableExposicoes();
-    //carregaCardsExposicoes();
+//    carregaCardsExposicoes();
 };
 
 function idExposicaoFocusLost() {
@@ -40,6 +41,20 @@ function idExposicaoFocusLost() {
     });
 }
 
+function unidadeDatFimFocusLost(){
+    const datIni = unidadeDatIni.value;
+    const datFim = unidadeDatFim.value;
+    var partesData = datIni.split("-");
+    var data = new Date(partesData[0], partesData[1] - 1, partesData[2]);
+    
+    if (datIni > datFim){
+        alert("Erro: Data inicial é maior que a data final!");
+    } else{
+        unidadeExposicao.options.length = 0;
+        carregaOpcoesLivresUnidade();
+    }
+}
+
 function btSalvarClick() {
     const fun = "salvarExposicao";
     const codigo = idExposicao.value;
@@ -54,8 +69,6 @@ function btSalvarClick() {
     
     if (datIni > datFim){
         alert("Erro: Data inicial é maior que a data final!");
-    } else if (data.getTime() < new Date().getTime()){
-        alert("Erro: Data inicial é menor que a data atual!");
     } else{
         return axios
         .post(`FunctionsExposicao?fun=${fun}&codigo=${codigo}&expositor=${expositor}&unidades=${unidades}&datIni=${datIni}&datFim=${datFim}`)
@@ -189,8 +202,7 @@ function carregaOpcoesExpositor() {
     const fun = "listarExpositores";
     return axios
     .post(`FunctionsExposicao?fun=${fun}`)
-    .then(response => {
-        
+    .then(response => {    
         let linhas = response.data.split("\n");
         let codigo,descricao;
         for (let linha of linhas){
@@ -230,8 +242,30 @@ function carregaOpcoesUnidade() {
     });
 }
 
-// Return an array of the selected opion values
-// select is an HTML select element
+function carregaOpcoesLivresUnidade() {
+    const fun = "listarUnidadesLivres";
+    const datIni = unidadeDatIni.value;
+    const datFim = unidadeDatFim.value;
+    return axios
+    .post(`FunctionsExposicao?fun=${fun}&datIni=${datIni}&datFim=${datFim}`)
+    .then(response => {
+        let linhas = response.data.split("\n");
+        let codigo,descricao;
+        for (let linha of linhas){
+            if (linha != ""){     
+                var elemento = document.createElement('option');
+                [codigo, descricao] = linha.split("|");
+                elemento.appendChild(document.createTextNode(codigo + " - " + descricao));
+                elemento.value = codigo;
+                unidadeExposicao.appendChild(elemento);
+            }
+        }
+    })
+    .catch(error => {
+        alert('oops, algo deu errado!', error);
+    });
+}
+
 function getSelectValues(select) {
   var result = [];
   var options = select && select.options;

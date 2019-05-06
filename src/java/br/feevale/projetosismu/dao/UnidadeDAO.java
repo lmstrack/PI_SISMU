@@ -4,6 +4,7 @@ package br.feevale.projetosismu.dao;
 import br.feevale.projetosismu.entity.Unidade;
 import br.feevale.projetosismu.util.FabricaConexao;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -153,6 +154,29 @@ public class UnidadeDAO {
             Connection conexao = FabricaConexao.getConexao();
             String consulta = "SELECT IDUNIDADE, DESCRICAO FROM UNIDADE";
             PreparedStatement ps = conexao.prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                unidade += rs.getInt("IDUNIDADE")+"|";
+                unidade += rs.getString("DESCRICAO")+"\n";
+            }
+            FabricaConexao.fecharConexao();
+        } catch (SQLException ex) {
+            Logger.getLogger(UnidadeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return unidade;
+    }
+    
+    public String selectUnidadesLivres(Date inicio, Date fim){
+        String unidade = "";
+        try {
+            Connection conexao = FabricaConexao.getConexao();
+            String consulta = "SELECT UN.IDUNIDADE, UN.DESCRICAO FROM UNIDADE UN WHERE IDUNIDADE NOT IN (SELECT EX.CODUNIDADE FROM EXPOSICAO EX WHERE EX.DATAINICIO BETWEEN ? AND ? OR EX.DATAFIM BETWEEN ? AND ? AND EX.CODUNIDADE = UN.IDUNIDADE)";
+            PreparedStatement ps = conexao.prepareStatement(consulta);
+            ps.setDate(1, inicio);
+            ps.setDate(2, fim);
+            ps.setDate(3, inicio);
+            ps.setDate(4, fim);
+            System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 unidade += rs.getInt("IDUNIDADE")+"|";

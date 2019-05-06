@@ -23,15 +23,18 @@ public class TesteConexao {
         
         Exposicao exp = new Exposicao();
         ExposicaoDAO expDAO = new ExposicaoDAO();
+        UnidadeDAO uniDAO = new UnidadeDAO();
         
         exp.setIdExposicao(1);
         exp.setCodExpositor(1);
         exp.setCodUnidade(1);
 
-        /*String dataInicio, dataFim;
+        String dataInicio, dataFim;
         
-        dataInicio = "2019-01-01";
-        dataFim = "2019-02-01";
+        dataInicio = "2019-05-06";
+        dataFim = "2019-06-01";
+        
+        Date inicio = null, fim = null;
                 
 //      Tratamento de Data
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
@@ -39,7 +42,7 @@ public class TesteConexao {
         try {
             date = sdf1.parse(dataInicio); // Returns a Date format object with the pattern
             java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
-            exp.setDataInicio(sqlStartDate);
+            inicio = sqlStartDate;
         } catch (ParseException ex){
             System.out.println("Erro ao converter data");
         }
@@ -50,14 +53,14 @@ public class TesteConexao {
         try {
             date2 = sdf12.parse(dataFim); // Returns a Date format object with the pattern
             java.sql.Date sqlStartDate = new java.sql.Date(date2.getTime());
-            exp.setDataFim(sqlStartDate);
+            fim = sqlStartDate;
         } catch (ParseException ex){
             System.out.println("Erro ao converter data");
         }
 
         
-        expDAO.insertExposicao(exp);*/
-        expDAO.deleteExposicao(1);
+        System.out.println(uniDAO.selectUnidadesLivres(inicio, fim));
+        
         //System.out.println(expDAO.selectExposicao(1));
         
         c.fecharConexao();

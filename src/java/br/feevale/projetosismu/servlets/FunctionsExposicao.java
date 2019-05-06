@@ -7,6 +7,7 @@ import br.feevale.projetosismu.dao.UnidadeDAO;
 import br.feevale.projetosismu.entity.Exposicao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
@@ -54,6 +55,11 @@ public class FunctionsExposicao extends HttpServlet {
                     break;
                 case "listarUnidades":
                     listarUnidades(out);
+                    break;
+                case "listarUnidadesLivres":
+                    dataInicio = request.getParameter("datIni");                  
+                    dataFim = request.getParameter("datFim");
+                    listarUnidadesLivres(dataInicio, dataFim, out);
                     break;
             }            
         }
@@ -131,7 +137,38 @@ public class FunctionsExposicao extends HttpServlet {
         out.print(expositores);
     }
 
-    private void listarUnidades(PrintWriter out) {
+    private void listarUnidadesLivres(String dataInicio, String dataFim, PrintWriter out) {
+        Date inicio = null, fim = null;
+
+//      Tratamento de Data Inicio
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
+        java.util.Date date = null;
+        try {
+            date = sdf1.parse(dataInicio); // Returns a Date format object with the pattern
+            java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+            inicio = sqlStartDate;
+        } catch (ParseException ex){
+            System.out.println("Erro ao converter data");
+        }
+
+//      Tratamento de Data Fim
+        SimpleDateFormat sdf12 = new SimpleDateFormat("yyyy-MM-dd"); // New Pattern
+        java.util.Date date2 = null;
+        try {
+            date2 = sdf12.parse(dataFim); // Returns a Date format object with the pattern
+            java.sql.Date sqlStartDate = new java.sql.Date(date2.getTime());
+            fim = sqlStartDate;
+        } catch (ParseException ex){
+            System.out.println("Erro ao converter data");
+        }
+        
+        String unidades;
+        UnidadeDAO uniDAO = new UnidadeDAO();
+        unidades = uniDAO.selectUnidadesLivres(inicio, fim);
+        out.print(unidades);
+    }
+    
+    public void listarUnidades(PrintWriter out){
         String unidades;
         UnidadeDAO uniDAO = new UnidadeDAO();
         unidades = uniDAO.selectUnidades();
