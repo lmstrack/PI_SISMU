@@ -36,7 +36,7 @@ public class UnidadeDAO {
             ps.setString(11, unidade.getPacote());
             ps.setInt(12, unidade.getCodCategoria());
             ps.setFloat(13, unidade.getValorNf());
-            ps.setInt(14, unidade.getCodRepLegal());  
+            ps.setString(14, unidade.getCodRepLegal());  
             ps.execute();
             FabricaConexao.fecharConexao();
         } catch (SQLException ex) {
@@ -62,7 +62,7 @@ public class UnidadeDAO {
             ps.setString(10, unidade.getPacote());
             ps.setInt(11, unidade.getCodCategoria());
             ps.setFloat(12, unidade.getValorNf());
-            ps.setInt(13, unidade.getCodRepLegal());  
+            ps.setString(13, unidade.getCodRepLegal());  
             ps.setInt(14, unidade.getIdUnidade());
             ps.execute();
         } catch (SQLException ex) {
@@ -108,7 +108,7 @@ public class UnidadeDAO {
                 unidade += rs.getString("PACOTE")+"|";
                 unidade += rs.getInt("CODCATEGORIA")+"|";
                 unidade += rs.getFloat("VALORNF")+"|";
-                unidade += rs.getInt("CODREPLEGAL"); 
+                unidade += rs.getString("CODREPLEGAL"); 
             }
             FabricaConexao.fecharConexao();
         } catch (SQLException ex) {
@@ -139,7 +139,7 @@ public class UnidadeDAO {
                 unidade += rs.getString("PACOTE")+"|";
                 unidade += rs.getInt("CODCATEGORIA")+"|";
                 unidade += rs.getFloat("VALORNF")+"|";
-                unidade += rs.getInt("CODREPLEGAL")+"\n"; 
+                unidade += rs.getString("CODREPLEGAL")+"\n"; 
             }
             FabricaConexao.fecharConexao();
         } catch (SQLException ex) {

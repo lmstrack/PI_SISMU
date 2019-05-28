@@ -6,7 +6,9 @@
 package br.feevale.projetosismu.servlets;
 
 import br.feevale.projetosismu.dao.CategoriaDAO;
+import br.feevale.projetosismu.dao.DoadorDAO;
 import br.feevale.projetosismu.dao.UnidadeDAO;
+import br.feevale.projetosismu.entity.Doador;
 import br.feevale.projetosismu.entity.Unidade;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -28,6 +30,7 @@ public class FunctionsUnidade extends HttpServlet {
     UnidadeDAO uniDAO = new UnidadeDAO();
     CategoriaDAO catDAO = new CategoriaDAO();
     Unidade uni = new Unidade();
+    DoadorDAO doaDAO = new DoadorDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -91,6 +94,10 @@ public class FunctionsUnidade extends HttpServlet {
                 
                 case "listarUnidades":
                     listarUnidades(out);
+                    break;
+                    
+                case "listarDoadores":
+                    listarDoadores(out);
                     break;
                     
                 case "listarCategorias":
@@ -175,7 +182,7 @@ public class FunctionsUnidade extends HttpServlet {
         uni.setPacote(pacote);
         uni.setCodCategoria(Integer.parseInt(codCategoria));
         uni.setValorNf(Float.parseFloat(valorNf));
-        uni.setCodRepLegal(Integer.parseInt(codRepLegal));
+        uni.setCodRepLegal(codRepLegal);
         
 //      Verifica se unidade já existe, se sim, atualiza unidade existente
         if (uniDAO.selectCodUnidade(Integer.parseInt(idUnidade)).isEmpty()){
@@ -205,6 +212,12 @@ public class FunctionsUnidade extends HttpServlet {
         String unidades;
         unidades = uniDAO.selectUnidades();
         out.print(unidades);
+    }
+
+    private void listarDoadores(PrintWriter out) {
+        String doadores;
+        doadores = doaDAO.selectDoadores();
+        out.print(doadores);
     }
 
 }

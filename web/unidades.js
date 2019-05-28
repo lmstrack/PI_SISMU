@@ -24,6 +24,7 @@ btCancelar.addEventListener("click", () => btCancelarClick());
 btExcluir.addEventListener("click", () => btExcluirClick());
 window.onload = () => {
     carregaOpcoesCategorias();
+    carregaOpcoesDoadores();
     carregaTableUnidades();
 };
 
@@ -148,4 +149,28 @@ function carregaOpcoesCategorias() {
     .catch(error => {
         alert('oops, algo deu errado!', error);
     });
+}
+
+function carregaOpcoesDoadores() {
+    const fun = "listarDoadores";
+    return axios
+    .post(`FunctionsUnidade?fun=${fun}`)
+    .then(response => {
+        
+        let linhas = response.data.split("\n");
+        let codigo, nome;
+        for (let linha of linhas){
+            if (linha != ""){     
+                var elemento = document.createElement('option');
+                [codigo, nome] = linha.split("|");
+                elemento.appendChild(document.createTextNode(codigo + "-" + nome));
+                elemento.value = codigo;
+                categoriaUnidade.appendChild(elemento);
+            }
+        }
+    })
+    .catch(error => {
+        alert('oops, algo deu errado!', error);
+    });
+
 }

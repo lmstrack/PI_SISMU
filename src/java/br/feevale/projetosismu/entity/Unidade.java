@@ -18,13 +18,13 @@ public class Unidade {
     private String pacote;
     private Integer codCategoria;
     private float valorNf;
-    private Integer codRepLegal;
+    private String codRepLegal;
 
-    public Integer getCodRepLegal() {
+    public String getCodRepLegal() {
         return codRepLegal;
     }
 
-    public void setCodRepLegal(Integer codRepLegal) {
+    public void setCodRepLegal(String codRepLegal) {
         this.codRepLegal = codRepLegal;
     }
 
