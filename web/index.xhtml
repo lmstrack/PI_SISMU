@@ -13,7 +13,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <title>Cadastro de exposições</title>
+        <title>Início</title>
         
     </h:head>
     <h:body>
@@ -49,48 +49,18 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <h1>Cadastro de exposições</h1>
-                            <h:form id="alocacao-unidades">
-                                <div class="form-group">
-                                    <label for="id-exposicao">ID exposição</label>
-                                    <input class="form-control" type="text" id="id-exposicao"/>
-                                    
-                                    <label for="data-inicio-exposicao">Data de início</label>
-                                    <input class="form-control" type="date" data-date="" data-date-format="DD MMMM YYYY" value="" id="data-inicio-exposicao"/>
-                                    
-                                    <label for="data-fim-exposicao">Data de fim</label>
-                                    <input class="form-control" type="date" data-date="" data-date-format="DD MMMM YYYY" value="" id="data-fim-exposicao"/>
-                                    
-                                    <label for="expositor-exposicao">Expositor</label>
-                                    <select class="custom-select" id="expositor-exposicao">
-                                      <option>Escolha o expositor...</option>
-                                    </select>
-                                   
-                                    <label for="unidade-exposicao" >Unidade(s)</label>
-                                    <select class="form-control" id="unidade-exposicao">
-                                        <option>Escolha a unidade...</option>
-                                    </select>
-                                    
-                                    <button type="button" class="btn btn-primary botao-cadastro" id="salvar">Salvar</button>
-                                    <button type="button" class="btn btn-secondary botao-cadastro" id="cancelar">Cancelar</button>
-                                    <button type="button" class="btn btn-danger botao-cadastro" id="excluir">Excluir</button>
-                                </div>
-                            </h:form>
+                            <h1>Início</h1>
+                            <h3 style="color: rgb(95, 95, 95)">Desenvolvido por:</h3>
+                            <h3 style="color: rgb(95, 95, 95)">Anderson Rodrigo Spaniol</h3>
+                            <h3 style="color: rgb(95, 95, 95)">Lucas Mateus Strack</h3>
                             <br/>
-                            
-                            <h3>Exposições</h3>
-                            <table class="table table-hover" id="table-exposicoes">
-                            </table>
-                            
-                            <table class="table table-hover" id="cards-exposicoes">
-                            </table>                              
-                            
+                            <h3 style="color: rgb(95, 95, 95)">Universidade Feevale</h3>
+                            <h3 style="color: rgb(95, 95, 95)">Semestre 2019/01</h3>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="./exposicoes.js"></script>
     </h:body>
 </html>
 
