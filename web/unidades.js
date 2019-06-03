@@ -163,9 +163,9 @@ function carregaOpcoesDoadores() {
             if (linha != ""){     
                 var elemento = document.createElement('option');
                 [codigo, nome] = linha.split("|");
-                elemento.appendChild(document.createTextNode(codigo + "-" + nome));
+                elemento.appendChild(document.createTextNode(codigo + " - " + nome));
                 elemento.value = codigo;
-                categoriaUnidade.appendChild(elemento);
+                codigoDoadorUnidade.appendChild(elemento);
             }
         }
     })
